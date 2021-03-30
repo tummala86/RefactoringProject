@@ -9,7 +9,7 @@ namespace PinnacleSampleTests
     public class PinnacleClientTests
     {
         [Fact]
-        public void CreatePartInvoice_WithStockCodeQuantityCustomerName_Returnstrue()
+        public void CreatePartInvoice_ValidStockCodeQuantityCustomerName_ReturnsTrue()
         {
             // Arrange
             Mock<IPartInvoiceController> partInvoiceController = new Mock<IPartInvoiceController>();
@@ -18,7 +18,6 @@ namespace PinnacleSampleTests
 
             // Act
             var pinnacleClient = new PinnacleClient(partInvoiceController.Object);
-
             var result = pinnacleClient.CreatePartInvoice("N1234", 10, "Ford");
 
             // Assert
@@ -26,7 +25,7 @@ namespace PinnacleSampleTests
         }
 
         [Fact]
-        public void CreatePartInvoice_WhenStockCodeEmpty_ReturnsFalse()
+        public void CreatePartInvoice_InvalidStockCode_ReturnsFalse()
         {
             // Arrange            
             Mock<ICustomerRepository> customerRepository = new Mock<ICustomerRepository>();
@@ -37,7 +36,6 @@ namespace PinnacleSampleTests
             // Act          
             var pinnacleController = new PartInvoiceController(customerRepository.Object, invoiceRepository.Object, partAvailabilityService.Object);
             var pinnacleClient = new PinnacleClient(pinnacleController);
-
             var result = pinnacleController.CreatePartInvoice(string.Empty, 10, "Ford");
 
             // Assert
